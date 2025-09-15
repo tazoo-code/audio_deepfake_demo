@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Conversion Studio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🎤 Voice Conversion Studio</h1>
+            <!-- <div class="device-info" id="deviceInfo">Loading...</div> -->
+            <div class="model-status" id="modelStatus">Initializing model...</div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left Panel: VIP Gallery -->
+            <section class="vip-gallery">
+                <h2>🌟 VIP Gallery</h2>
+                <div class="vip-grid" id="vipGrid">
+                    <div class="loading-card">
+                        <div class="spinner"></div>
+                        <p>Loading VIPs...</p>
+                    </div>
+                </div>
+                <div class="selected-vip" id="selectedVip">
+                    <p>Select a VIP to get started</p>
+                </div>
+            </section>
+
+            <!-- Right Panel: Controls -->
+            <section class="controls-panel">
+                <!-- Audio Input Section -->
+                <div class="control-group">
+                    <h3>🎙️ Audio Input</h3>
+                    <div class="audio-controls">
+                        <button id="recordBtn" class="btn btn-primary">
+                            <span class="btn-icon">🎙️</span>
+                            <span class="btn-text">Start Recording</span>
+                        </button>
+                        <button id="loadFileBtn" class="btn btn-secondary">
+                            <span class="btn-icon">📁</span>
+                            <span class="btn-text">Load File</span>
+                        </button>
+                    </div>
+                    <div class="status-display" id="recordingStatus">
+                        Ready to record or load audio file
+                    </div>
+                    <div class="file-info" id="originalFile">
+                        <span class="file-status">No file loaded</span>
+                    </div>
+                </div>
+
+                <!-- Conversion Section -->
+                <div class="control-group">
+                    <h3>🔄 Voice Conversion</h3>
+                    <button id="convertBtn" class="btn btn-accent" disabled>
+                        <span class="btn-icon">✨</span>
+                        <span class="btn-text">Convert Voice</span>
+                    </button>
+                    <div class="status-display" id="conversionStatus">
+                        Select a VIP and load audio to begin
+                    </div>
+                    <div class="progress-bar" id="progressBar" style="display: none;">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="file-info" id="convertedFile">
+                        <span class="file-status">No converted file</span>
+                    </div>
+                </div>
+
+                <!-- Playback Section -->
+                <div class="control-group">
+                    <h3>🔊 Playback</h3>
+                    <div class="playback-controls">
+                        <button id="playOriginalBtn" class="btn btn-outline" disabled>
+                            <span class="btn-icon">▶️</span>
+                            <span class="btn-text">Play Original</span>
+                        </button>
+                        <button id="playConvertedBtn" class="btn btn-outline" disabled>
+                            <span class="btn-icon">🎵</span>
+                            <span class="btn-text">Play Converted</span>
+                        </button>
+                        <button id="stopBtn" class="btn btn-danger">
+                            <span class="btn-icon">⏹️</span>
+                            <span class="btn-text">Stop</span>
+                        </button>
+                    </div>
+                    <div class="status-display" id="playbackStatus">
+                        No audio playing
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <!-- <footer class="footer">
+            <div class="footer-content">
+                <p>Voice Conversion Studio - AI-Powered Voice Transformation</p>
+                <div class="model-status" id="modelStatus">Initializing model...</div>
+            </div>
+        </footer> -->
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
