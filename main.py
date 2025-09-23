@@ -47,6 +47,44 @@ class VoiceConversionAPI:
         os.makedirs("images", exist_ok=True)
         os.makedirs("voices", exist_ok=True)
     
+    # def load_vips(self):
+    #     """Load VIP data from images and voices directories"""
+    #     vips = {}
+        
+    #     # Scan images directory
+    #     image_extensions = ['*.jpg', '*.jpeg', '*.png', '*.gif', '*.bmp', '*.webp']
+    #     for ext in image_extensions:
+    #         for image_path in glob.glob(f"images/{ext}"):
+    #             name = os.path.splitext(os.path.basename(image_path))[0]
+                
+    #             # Convert image to base64 for web display
+    #             try:
+    #                 with Image.open(image_path) as img:
+    #                     img.thumbnail((150, 150), Image.Resampling.LANCZOS)
+    #                     buffered = BytesIO()
+    #                     img.save(buffered, format="JPEG")
+    #                     img_str = base64.b64encode(buffered.getvalue()).decode()
+                        
+    #                     # Check for matching voice file
+    #                     voice_extensions = ['wav', 'mp3', 'm4a', 'flac', 'aac', 'ogg']
+    #                     voice_path = None
+    #                     for voice_ext in voice_extensions:
+    #                         potential_voice = f"voices/{name}.{voice_ext}"
+    #                         if os.path.exists(potential_voice):
+    #                             voice_path = potential_voice
+    #                             break
+                        
+    #                     vips[name] = {
+    #                         'name': name.replace('_', ' ').title(),
+    #                         'image': f"data:image/jpeg;base64,{img_str}",
+    #                         'voice_path': voice_path,
+    #                         'has_voice': voice_path is not None
+    #                     }
+    #             except Exception as e:
+    #                 print(f"Error processing image {image_path}: {e}")
+        
+    #     return vips
+
     def load_vips(self):
         """Load VIP data from images and voices directories"""
         vips = {}
@@ -57,33 +95,30 @@ class VoiceConversionAPI:
             for image_path in glob.glob(f"images/{ext}"):
                 name = os.path.splitext(os.path.basename(image_path))[0]
                 
-                # Convert image to base64 for web display
                 try:
-                    with Image.open(image_path) as img:
-                        img.thumbnail((150, 150), Image.Resampling.LANCZOS)
-                        buffered = BytesIO()
-                        img.save(buffered, format="JPEG")
-                        img_str = base64.b64encode(buffered.getvalue()).decode()
-                        
-                        # Check for matching voice file
-                        voice_extensions = ['wav', 'mp3', 'm4a', 'flac', 'aac', 'ogg']
-                        voice_path = None
-                        for voice_ext in voice_extensions:
-                            potential_voice = f"voices/{name}.{voice_ext}"
-                            if os.path.exists(potential_voice):
-                                voice_path = potential_voice
-                                break
-                        
-                        vips[name] = {
-                            'name': name.replace('_', ' ').title(),
-                            'image': f"data:image/jpeg;base64,{img_str}",
-                            'voice_path': voice_path,
-                            'has_voice': voice_path is not None
-                        }
+                    # Check for matching voice file
+                    voice_extensions = ['wav', 'mp3', 'm4a', 'flac', 'aac', 'ogg']
+                    voice_path = None
+                    for voice_ext in voice_extensions:
+                        potential_voice = f"voices/{name}.{voice_ext}"
+                        if os.path.exists(potential_voice):
+                            voice_path = potential_voice
+                            break
+                    
+                    # Use relative path for HTTP server
+                    image_filename = os.path.basename(image_path)
+                    
+                    vips[name] = {
+                        'name': name.replace('_', ' ').title(),
+                        'image': f"images/{image_filename}",  # Relative path for HTTP server
+                        'voice_path': voice_path,
+                        'has_voice': voice_path is not None
+                    }
                 except Exception as e:
                     print(f"Error processing image {image_path}: {e}")
         
         return vips
+
     
     def get_vips(self):
         """Return VIP data for frontend"""
@@ -342,7 +377,7 @@ def main():
     
     # Start the application
     # webview.start(debug=False)
-    webview.start(debug=True)
+    webview.start(debug=True, http_server=True)
 
 
 if __name__ == "__main__":

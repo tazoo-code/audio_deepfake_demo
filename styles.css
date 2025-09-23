@@ -200,6 +200,10 @@ body {
     text-align: center;
 }
 
+.selected-vip h4 {
+    text-align: left;
+}
+
 /* Controls Panel */
 .controls-panel {
     background: rgba(42, 45, 58, 0.6);
