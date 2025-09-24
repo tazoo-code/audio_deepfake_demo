@@ -29,6 +29,7 @@ class VoiceConversionApp {
             loadFileBtn: document.getElementById('loadFileBtn'),
             convertBtn: document.getElementById('convertBtn'),
             playOriginalBtn: document.getElementById('playOriginalBtn'),
+	    playTargetBtn: document.getElementById('playTargetBtn'),
             playConvertedBtn: document.getElementById('playConvertedBtn'),
             stopBtn: document.getElementById('stopBtn'),
             
@@ -55,6 +56,7 @@ class VoiceConversionApp {
         this.elements.loadFileBtn.addEventListener('click', () => this.loadAudioFile());
         this.elements.convertBtn.addEventListener('click', () => this.convertAudio());
         this.elements.playOriginalBtn.addEventListener('click', () => this.playAudio('original'));
+	this.elements.playTargetBtn.addEventListener('click', () => this.playAudio('target'));
         this.elements.playConvertedBtn.addEventListener('click', () => this.playAudio('converted'));
         this.elements.stopBtn.addEventListener('click', () => this.stopAudio());
     }
@@ -148,6 +150,7 @@ class VoiceConversionApp {
                 this.selectedVip = vip;
                 this.updateConversionStatus();
                 this.showToast('Success', result.message, 'success');
+		this.elements.playTargetBtn.disabled = !vip.has_voice;
             } else {
                 this.showToast('Error', result.message, 'error');
             }

@@ -318,6 +318,16 @@ body {
     transform: translateY(-1px);
 }
 
+.stop-control {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.stop-control .btn {
+    width: auto; /* Let it size naturally */
+    min-width: 120px; /* Ensure decent minimum width */
+}
+
 .btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;

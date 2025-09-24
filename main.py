@@ -299,6 +299,8 @@ class VoiceConversionAPI:
             file_path = self.recorded_file_path
         elif audio_type == "converted":
             file_path = self.converted_file_path
+        elif audio_type == "target":
+            file_path = self.target_voice_path
         
         if not file_path or not os.path.exists(file_path):
             return {"success": False, "message": f"No {audio_type} audio file available."}
